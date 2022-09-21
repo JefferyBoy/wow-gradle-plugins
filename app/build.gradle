@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android.aspectj'
+//apply plugin: 'android.aspectj'
 
 android {
     compileSdk 31
