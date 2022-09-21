@@ -1,0 +1,18 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'com.github.jeffery'
+version '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation 'org.aspectj:aspectjweaver:1.9.9.1'
+    implementation 'org.aspectj:aspectjtools:1.9.9.1'
+    compileOnly 'com.android.tools.build:gradle:3.6.1'
+}
