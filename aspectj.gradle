@@ -1,4 +1,3 @@
-// 使用dpermission-gradle-plugin中的插件jeffery-dpermission或者本gradle文件都可以
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main

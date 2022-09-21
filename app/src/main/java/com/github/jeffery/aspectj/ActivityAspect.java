@@ -1,7 +1,5 @@
 package com.github.jeffery.aspectj;
 
-import android.os.Bundle;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,15 +15,14 @@ public class ActivityAspect {
         return new ActivityAspect();
     }
 
-    @Pointcut("*android.app.Activity+ * onCreate(android.os.Bundle)")
-    public void onCreate(Bundle bundle) {
-
+    @Pointcut("execution(* com.github.jeffery.aspectj.*Activity.*(..))")
+    public void onCreate() {
     }
 
-    @Around("onCreate(bundle)")
-    public void onCreateAround(final ProceedingJoinPoint joinPoint, Bundle bundle) throws Throwable {
-        System.out.println("onCreate before");
-        joinPoint.proceed(new Object[] {bundle});
-        System.out.println("onCreate after");
+    @Around("onCreate()")
+    public void onCreateAround(final ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println("before method: " + joinPoint.getSignature());
+        joinPoint.proceed(joinPoint.getArgs());
+        System.out.println("after method: " + joinPoint.getSignature());
     }
 }
