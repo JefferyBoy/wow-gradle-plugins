@@ -1,9 +1,13 @@
 # android-aspectj-gradle-plugin
 
+[![](https://jitpack.io/v/JefferyBoy/android-aspectj-gradle-plugin.svg)](https://jitpack.io/#JefferyBoy/android-aspectj-gradle-plugin)
+
 在安卓中使用aspectj。全部功能都是aspectj官方的，这个插件仅仅是做aspectj和android gradle plugin的连接桥梁作用。
 在安卓项目编译完成后执行aspectj进行class字节码修改。
 
 使用方法
+
+**注：kotlin编写的切面只能应用于kotlin代码中，java编写的切面只能应用于java代码中**
 
 ## 1.引入插件包
 
@@ -17,7 +21,7 @@ buildscript {
     }
     dependencies {
         // 加入插件包
-        classpath 'com.github.JefferyBoy:android-aspectj-gradle-plugin:1.0.1'
+        classpath 'com.github.JefferyBoy:android-aspectj-gradle-plugin:1.0.3'
     }
 }
 
@@ -29,10 +33,6 @@ buildscript {
 
 ```gradle
 apply plugin: 'android.aspectj'
-dependencies {
-    // aspectj运行时库
-    implementation 'org.aspectj:aspectjrt:1.9.9.1'
-}
 ```
 
 ## 3.编写aop切面代码

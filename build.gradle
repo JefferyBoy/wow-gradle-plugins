@@ -10,13 +10,15 @@ buildscript {
         classpath 'org.aspectj:aspectjweaver:1.9.9.1'
         classpath 'org.aspectj:aspectjtools:1.9.9.1'
         classpath 'com.android.tools.build:gradle:7.0.3'
-//        classpath 'com.github.JefferyBoy:android-aspectj-gradle-plugin:1.0.1'
-//        classpath project(':android-aspectj-gradle-plugin')
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+//        classpath 'com.github.JefferyBoy:android-aspectj-gradle-plugin:1.0.3'
+        classpath project(':android-aspectj-gradle-plugin')
     }
 }
 allprojects {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         gradlePluginPortal()

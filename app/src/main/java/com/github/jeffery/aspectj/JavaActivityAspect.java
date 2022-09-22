@@ -10,9 +10,9 @@ import org.aspectj.lang.annotation.Pointcut;
  * @date 2022/9/21
  */
 @Aspect
-public class ActivityAspect {
-    public static ActivityAspect aspectOf() {
-        return new ActivityAspect();
+public class JavaActivityAspect {
+    public static JavaActivityAspect aspectOf() {
+        return new JavaActivityAspect();
     }
 
     @Pointcut("execution(* com.github.jeffery.aspectj.*Activity.*(..))")
