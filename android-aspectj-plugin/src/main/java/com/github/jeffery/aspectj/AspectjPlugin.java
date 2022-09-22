@@ -49,7 +49,6 @@ public class AspectjPlugin implements Plugin<Project> {
                 variant.getOutputs().all(new Action<BaseVariantOutput>() {
                     @Override
                     public void execute(BaseVariantOutput variantOutput) {
-                        String fullName = variantOutput.getName();
                         TaskProvider<JavaCompile> javaCompileProvider = variant.getJavaCompileProvider();
                         JavaCompile javaCompile = javaCompileProvider.get();
                         List<File> bootClassPathList = appExtension.getBootClasspath();
@@ -58,21 +57,37 @@ public class AspectjPlugin implements Plugin<Project> {
                             bootClassPath.append(file.getPath()).append(File.pathSeparator);
                         }
                         bootClassPath.deleteCharAt(bootClassPath.length() - 1);
+                        String javacOutDir = "";
                         Task kotlinCompileTask = null;
                         try {
-                            String kotlinCompileTaskName = "compile" + (fullName.substring(0, 1).toUpperCase() + fullName.substring(1)) + "Kotlin";
+                            // flavor-buildType组合的名称
+                            // 如 free-debug
+                            String flavor = variant.getFlavorName();
+                            if (!flavor.isEmpty()) {
+                                flavor = flavor.substring(0, 1).toUpperCase() + flavor.substring(1);
+                            }
+                            String buildType = variant.getBuildType().getName();
+                            if (!buildType.isEmpty()) {
+                                buildType = buildType.substring(0, 1).toUpperCase() + buildType.substring(1);
+                            }
+                            javacOutDir = variant.getFlavorName() + buildType;
+                            String kotlinCompileTaskName = "compile" + flavor + buildType + "Kotlin";
+                            log.debug("kotlin task: {}", kotlinCompileTaskName);
                             kotlinCompileTask = project.getTasks().getByName(kotlinCompileTaskName);
-                        } catch (UnknownTaskException ignored) {
+                        } catch (UnknownTaskException e) {
+                            e.printStackTrace();
                         }
                         // kotlin
                         if (kotlinCompileTask != null) {
+                            String finalJavacOutDir = javacOutDir;
                             kotlinCompileTask.doLast(task -> aspectjWeaver(
                                 bootClassPath.toString(),
-                                project.getBuildDir().getPath() + "/tmp/kotlin-classes/" + fullName,
+                                project.getBuildDir().getPath() + "/tmp/kotlin-classes/" + finalJavacOutDir,
                                 javaCompile.getClasspath().getAsPath()
                             ));
                         }
                         // java
+                        log.debug("java compile task: {}", javaCompile.getName());
                         javaCompile.doLast(task -> aspectjWeaver(
                             bootClassPath.toString(),
                             javaCompile.getDestinationDir().toString(),
@@ -93,7 +108,7 @@ public class AspectjPlugin implements Plugin<Project> {
             "-inpath", inputOutputPath,
             "-d", inputOutputPath,
             "-bootclasspath", bootClassPath};
-        log.quiet("aspectj javaArgs: " + Arrays.toString(javaArgs));
+        log.debug("aspectj javaArgs: " + Arrays.toString(javaArgs));
         MessageHandler handler = new MessageHandler(true);
         new Main().run(javaArgs, handler);
         for (IMessage message : handler.getMessages(null, true)) {

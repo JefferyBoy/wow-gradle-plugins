@@ -24,8 +24,9 @@ class KotlinActivityAspect {
     }
 
     companion object {
-        fun aspectOf(): JavaActivityAspect {
-            return JavaActivityAspect()
+        @JvmStatic
+        fun aspectOf(): KotlinActivityAspect {
+            return KotlinActivityAspect()
         }
     }
 }
