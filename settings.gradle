@@ -1,3 +1,3 @@
 rootProject.name = "android-aspectj-gradle-plugin"
 include ':app'
-include ':android-aspectj-gradle-plugin'
+include ':android-aspectj-plugin'
