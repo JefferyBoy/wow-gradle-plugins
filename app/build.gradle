@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'android.aspectj'
+apply plugin: 'android.aspectj'
 //apply from: '../aspectj.gradle'
-
 android {
     compileSdk 31
 

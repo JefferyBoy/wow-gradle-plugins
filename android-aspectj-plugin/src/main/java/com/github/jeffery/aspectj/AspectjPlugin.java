@@ -15,15 +15,24 @@ import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.UnknownTaskException;
 import org.gradle.api.artifacts.Dependency;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 import org.gradle.api.plugins.PluginContainer;
+import org.gradle.api.specs.Spec;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.compile.JavaCompile;
+import org.gradle.util.GUtil;
+import org.jetbrains.kotlin.com.google.common.collect.Lists;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author mxlei
@@ -38,10 +47,10 @@ public class AspectjPlugin implements Plugin<Project> {
         if (!plugins.hasPlugin(AppPlugin.class) && !plugins.hasPlugin(LibraryPlugin.class)) {
             return;
         }
+        log.quiet("config aspectj for project " + project.getName());
         Dependency rt = project.getDependencies().create("org.aspectj:aspectjrt:1.9.9.1");
         project.getDependencies().add("implementation", rt);
-
-        log.quiet("config aspectj for project " + project.getName());
+        AspectjExtension aspectjExtension = project.getExtensions().create("aspectj", AspectjExtension.class);
         final AppExtension appExtension = project.getExtensions().getByType(AppExtension.class);
         appExtension.getApplicationVariants().all(new Action<ApplicationVariant>() {
             @Override
@@ -108,7 +117,7 @@ public class AspectjPlugin implements Plugin<Project> {
             "-inpath", inputOutputPath,
             "-d", inputOutputPath,
             "-bootclasspath", bootClassPath};
-        log.debug("aspectj javaArgs: " + Arrays.toString(javaArgs));
+        log.quiet("aspectj javaArgs: " + Arrays.toString(javaArgs));
         MessageHandler handler = new MessageHandler(true);
         new Main().run(javaArgs, handler);
         for (IMessage message : handler.getMessages(null, true)) {
