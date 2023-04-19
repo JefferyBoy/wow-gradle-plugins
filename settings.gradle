@@ -1,3 +1,21 @@
-rootProject.name = "android-aspectj-gradle-plugin"
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "gradle-plugins"
+includeBuild("./plugin/aspectj") {
+    name ':plugin'
+}
 include ':app'
-include ':android-aspectj-plugin'
+include ':example:aspectj'

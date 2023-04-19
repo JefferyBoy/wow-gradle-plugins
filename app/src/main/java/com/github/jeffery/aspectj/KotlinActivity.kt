@@ -19,6 +19,7 @@ class KotlinActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun test(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+        println("test")
     }
 
     @Override

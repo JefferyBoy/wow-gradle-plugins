@@ -2,7 +2,7 @@ package com.github.jeffery.aspectj;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.regex.Pattern;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +12,13 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        Pattern pattern = Pattern.compile("^.+\\u0024AjcClosure\\d+$");
+        Pattern pointCutPattern = Pattern.compile("\\u0024AjcClosure\\d+\\.class$");
+
+        String text = "23251$AjcClosure223242.class";
+        text = text.replaceAll(pointCutPattern.pattern(), "");
+        System.out.println(text);
+        boolean ok = pointCutPattern.matcher(text).matches();
+        System.out.println("ok = " + ok);
     }
 }

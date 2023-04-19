@@ -1,28 +1,14 @@
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-        maven { url 'https://jitpack.io' }
-        gradlePluginPortal()
-    }
     dependencies {
-        classpath 'org.aspectj:aspectjweaver:1.9.9.1'
-        classpath 'org.aspectj:aspectjtools:1.9.9.1'
-        classpath 'com.android.tools.build:gradle:7.0.3'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
 //        classpath 'com.github.JefferyBoy:android-aspectj-gradle-plugin:1.0.3'
-        classpath project(':android-aspectj-plugin')
     }
 }
-allprojects {
-    repositories {
-        google()
-        mavenLocal()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        gradlePluginPortal()
-    }
+
+plugins {
+    id 'com.android.application' version '7.0.2' apply false
+    id 'com.android.library' version '7.0.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+    id "android.build.aspectj" apply false
 }
 
 task clean(type: Delete) {

@@ -12,15 +12,19 @@ import org.aspectj.lang.annotation.Pointcut
 @Aspect
 class KotlinActivityAspect {
     @Pointcut("execution(* com.github.jeffery.aspectj.*Activity.*(..))")
-    fun onCreate() {
+    fun pointcut1() {
     }
 
-    @Around("onCreate()")
+    @Pointcut("execution(* com.github.jeffery.aspectj.ui.*Activity.*(..))")
+    fun pointcut2() {
+    }
+
+    @Around("pointcut1() || pointcut2()")
     @Throws(Throwable::class)
     fun onCreateAround(joinPoint: ProceedingJoinPoint) {
-        println("before method: " + joinPoint.signature)
+        println("kotlin aspect before method: " + joinPoint.signature)
         joinPoint.proceed(joinPoint.args)
-        println("after method: " + joinPoint.signature)
+        println("kotlin aspect after method: " + joinPoint.signature)
     }
 
     companion object {
