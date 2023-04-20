@@ -12,6 +12,15 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+dependencies {
+    implementation(gradleApi())
+    implementation(localGroovy())
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.aspectj:aspectjweaver:1.9.19")
+    implementation("org.aspectj:aspectjtools:1.9.19")
+    compileOnly("com.android.tools.build:gradle:7.0.2")
+}
+
 gradlePlugin {
     website.set("https://github.com/JefferyBoy/wow-gradle-plugins")
     vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins")
@@ -27,11 +36,3 @@ gradlePlugin {
     }
 }
 
-dependencies {
-    implementation(gradleApi())
-    implementation(localGroovy())
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("org.aspectj:aspectjweaver:1.9.19")
-    implementation("org.aspectj:aspectjtools:1.9.19")
-    compileOnly("com.android.tools.build:gradle:7.0.2")
-}

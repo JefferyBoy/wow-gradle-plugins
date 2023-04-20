@@ -10,4 +10,6 @@ plugins {
         .apply(false)
     id("top.amake.aspectj")
         .apply(false)
+    id("top.amake.legu")
+        .apply(false)
 }

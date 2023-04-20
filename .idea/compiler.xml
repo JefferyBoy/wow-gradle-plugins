@@ -18,6 +18,12 @@
       <module name="plugin" target="1.8" />
       <module name="plugin.main" target="1.8" />
       <module name="plugin.test" target="1.8" />
+      <module name="tencent-legu" target="1.8" />
+      <module name="tencent-legu.main" target="1.8" />
+      <module name="tencent-legu.test" target="1.8" />
+      <module name="top.amake.aspectj" target="1.8" />
+      <module name="top.amake.aspectj.main" target="1.8" />
+      <module name="top.amake.aspectj.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

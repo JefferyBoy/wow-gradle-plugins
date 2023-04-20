@@ -7,9 +7,14 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="$PROJECT_DIR$/plugin/aspectj" name="aspectj">
+              <build path="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/aspectj" name="aspectj">
                 <projects>
-                  <project path="$PROJECT_DIR$/plugin/aspectj" />
+                  <project path="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/aspectj" />
+                </projects>
+              </build>
+              <build path="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/tencent-legu" name="tencent-legu">
+                <projects>
+                  <project path="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/tencent-legu" />
                 </projects>
               </build>
             </builds>
@@ -20,11 +25,15 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/example" />
-            <option value="$PROJECT_DIR$/example/aspectj-app" />
-            <option value="$PROJECT_DIR$/example/aspectj-library" />
-            <option value="$PROJECT_DIR$/plugin/aspectj" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/example" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/example/aspectj-app" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/example/aspectj-library" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/example/legu-app" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/library" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/library/easy-permission" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/aspectj" />
+            <option value="/media/mxlei/data/workspace/myproject/wow-gradle-plugins/plugin/tencent-legu" />
           </set>
         </option>
       </GradleProjectSettings>
