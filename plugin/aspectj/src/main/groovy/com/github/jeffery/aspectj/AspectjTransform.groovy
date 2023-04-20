@@ -25,7 +25,7 @@ class AspectjTransform extends Transform {
     private Project project
     private String baseDir
     private Gson gson
-    private AspectCache aspectCache
+    private AspectjCache aspectCache
     private File aspectCacheFile
     private String aspectCacheJson
     private final Logger log = Logging.getLogger(getClass())
@@ -45,10 +45,10 @@ class AspectjTransform extends Transform {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create()
         aspectCacheFile = new File("${baseDir}/aspect${transform.context.variantName.capitalize()}.json")
-        aspectCache = new AspectCache()
+        aspectCache = new AspectjCache()
         if (aspectCacheFile.exists()) {
             aspectCacheJson = new String(aspectCacheFile.readBytes())
-            def cache = gson.fromJson(aspectCacheJson, AspectCache)
+            def cache = gson.fromJson(aspectCacheJson, AspectjCache)
             aspectCache.aspectClasses.addAll(cache.aspectClasses)
             aspectCache.aspectJoinPoints.putAll(cache.aspectJoinPoints)
         }
@@ -79,7 +79,7 @@ class AspectjTransform extends Transform {
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
-        log.quiet("transform incremental: ${transformInvocation.incremental}")
+//        log.quiet("transform incremental: ${transformInvocation.incremental}")
         initTransform(transformInvocation)
         def variantName = transformInvocation.context.variantName
         TransformOutputProvider outputProvider = transformInvocation.getOutputProvider();
@@ -112,14 +112,14 @@ class AspectjTransform extends Transform {
                         def fileTemp = new File(fileTempDir, file.path.replaceFirst(dirInput.file.path, ""))
                         switch (status) {
                             case Status.ADDED:
-                                log.quiet("add file ${file.path}")
+//                                log.quiet("add file ${file.path}")
                                 FileUtil.copyFile(file, fileDest)
                                 FileUtil.copyFile(file, fileTemp)
                                 needWeaver = true
                                 aspectCache.addAspect(findAspectOfFile(fileDest))
                                 break
                             case Status.CHANGED:
-                                log.quiet("changed file ${file.path}")
+//                                log.quiet("changed file ${file.path}")
                                 aspectCache.removeAspect(fileDest)
                                 aspectCache.removeJoinPoint(fileDest)
                                 FileUtil.copyFile(file, fileDest)
@@ -128,7 +128,7 @@ class AspectjTransform extends Transform {
                                 aspectCache.addAspect(findAspectOfFile(fileDest))
                                 break
                             case Status.REMOVED:
-                                log.quiet("remove file ${file.path}")
+//                                log.quiet("remove file ${file.path}")
                                 aspectCache.removeAspect(fileDest)
                                 aspectCache.removeJoinPoint(fileDest)
                                 break
@@ -146,13 +146,13 @@ class AspectjTransform extends Transform {
             Collection<File> changedFiles = new ArrayList<>()
             transformInvocation.inputs.each { input ->
                 input.jarInputs.each { jar ->
-                    log.quiet("jarInput ${jar.file.path}")
+//                    log.quiet("jarInput ${jar.file.path}")
                     File jarDest = outputProvider.getContentLocation(jar.getFile().getAbsolutePath(), jar.getContentTypes(), jar.getScopes(), Format.JAR);
                     FileUtil.copyFile(jar.file, jarDest)
                     aspectCache.addAspect(findAspectOfFile(jarDest))
                 }
                 input.directoryInputs.each { dir ->
-                    log.quiet("directoryInput ${dir.file.path}")
+//                    log.quiet("directoryInput ${dir.file.path}")
                     File dirDest = outputProvider.getContentLocation(dir.getName(), dir.getContentTypes(), dir.getScopes(), Format.DIRECTORY);
                     FileUtil.copyDir(dir.getFile(), dirDest)
                     aspectCache.addAspect(findAspectOfFile(dirDest))
@@ -178,9 +178,9 @@ class AspectjTransform extends Transform {
      * */
     private void processAspectj(String variantName, String inputPath, String outputPath) {
         def aspectFileSet = aspectCache.aspectClasses
-        log.quiet("processAspectj ${variantName}")
-        log.quiet("inputPath =  ${inputPath}")
-        log.quiet("aspectPath =  ${aspectFileSet.join(":")}")
+//        log.quiet("processAspectj ${variantName}")
+//        log.quiet("inputPath =  ${inputPath}")
+//        log.quiet("aspectPath =  ${aspectFileSet.join(":")}")
         if (aspectFileSet.isEmpty()) {
             return
         }
@@ -194,12 +194,6 @@ class AspectjTransform extends Transform {
             .map({ it.substring(0, it.lastIndexOf('/')) })
             .collect(Collectors.toSet())
             .join(":")
-        // todo kotlin写的aspect能生成java类的代码，不能生成kotlin类的代码
-        // todo java写的aspect能生成kotlin类的代码，不能生成java类的代码
-//        aspectPath = "/media/mxlei/data/workspace/myproject/android-aspectj-gradle-plugin/app/build/tmp/kotlin-classes/freeDebug/com/github/jeffery/aspectj"
-//        aspectPath = "/media/mxlei/data/workspace/myproject/android-aspectj-gradle-plugin/app/build/intermediates/javac/freeDebug/classes/com/github/jeffery/aspectj"
-//        inputPath = "/media/mxlei/data/workspace/myproject/android-aspectj-gradle-plugin/app/build/intermediates/javac/freeDebug/classes/com/github/jeffery/aspectj/ui"
-//        outputPath = "/media/mxlei/data/workspace/myproject/android-aspectj-gradle-plugin/app/build/intermediates/javac/freeDebug/classes"
         if (lib != null) {
             lib.libraryVariants.forEach { variant ->
                 if (variant.name == variantName) {

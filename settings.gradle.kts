@@ -3,7 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { setUrl("https://jitpack.io") }
     }
 }
 dependencyResolutionManagement {
@@ -14,8 +14,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "gradle-plugins"
-includeBuild("./plugin/aspectj") {
-    name ':plugin'
-}
-include ':app'
-include ':example:aspectj'
+includeBuild("./plugin/aspectj")
+include(":example:aspectj-app")
+include(":example:aspectj-library")

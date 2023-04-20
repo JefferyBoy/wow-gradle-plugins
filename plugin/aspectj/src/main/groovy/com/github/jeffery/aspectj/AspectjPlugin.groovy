@@ -14,7 +14,7 @@ import org.gradle.api.plugins.PluginContainer
  * @author mxlei
  * @date 2022/9/20
  */
-public class AspectjPlugin implements Plugin<Project> {
+class AspectjPlugin implements Plugin<Project> {
     private final Logger log = Logging.getLogger(getClass())
     private AspectjTransform aspectjTransform
     private Project project

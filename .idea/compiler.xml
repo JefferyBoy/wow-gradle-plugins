@@ -12,6 +12,12 @@
       <module name="aspectj" target="1.8" />
       <module name="aspectj.main" target="1.8" />
       <module name="aspectj.test" target="1.8" />
+      <module name="build-config" target="1.8" />
+      <module name="build-config.main" target="1.8" />
+      <module name="build-config.test" target="1.8" />
+      <module name="plugin" target="1.8" />
+      <module name="plugin.main" target="1.8" />
+      <module name="plugin.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

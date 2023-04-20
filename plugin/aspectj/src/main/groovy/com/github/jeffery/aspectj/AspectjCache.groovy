@@ -1,6 +1,6 @@
 package com.github.jeffery.aspectj
 
-class AspectCache {
+class AspectjCache {
     def aspectClasses = new HashSet<String>()
     def aspectJoinPoints = new HashMap<String, Collection<String>>()
 
