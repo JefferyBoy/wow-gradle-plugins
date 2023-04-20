@@ -1,9 +1,10 @@
 plugins {
     id("groovy")
     id("java-gradle-plugin")
+    id("com.gradle.plugin-publish").version("1.2.0")
 }
 
-group = "com.github.jeffery"
+group = "top.amake"
 version = "1.0.5"
 
 java {
@@ -12,12 +13,12 @@ java {
 }
 
 gradlePlugin {
-    website.set("git@github.com:JefferyBoy/wow-gradle-plugins.git")
-    vcsUrl.set("git@github.com:JefferyBoy/wow-gradle-plugins.git")
+    website.set("https://github.com/JefferyBoy/wow-gradle-plugins")
+    vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins")
     plugins {
         create("aspectj") {
-            id = "android.build.aspectj"
-            implementationClass = "com.github.jeffery.aspectj.AspectjPlugin"
+            id = "top.amake.aspectj"
+            implementationClass = "top.amake.aspectj.AspectjPlugin"
             displayName = "Android aspectj plugin"
             description =
                 "Support eclipse aspectj on android app and library module. Use transform api to improve build performance."

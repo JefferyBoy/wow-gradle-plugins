@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("android.build.aspectj")
+    id("top.amake.aspectj")
 }
 
 android {

@@ -8,9 +8,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
         .version("1.8.0")
         .apply(false)
-    id("com.gradle.plugin-publish")
-        .version("1.2.0")
-        .apply(false)
-    id("android.build.aspectj")
+    id("top.amake.aspectj")
         .apply(false)
 }

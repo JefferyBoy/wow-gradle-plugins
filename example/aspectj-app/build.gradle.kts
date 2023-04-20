@@ -1,11 +1,12 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("android.build.aspectj")
+    id("top.amake.aspectj")
 }
 
 android {
     compileSdk = 31
+    namespace = "top.amake.aspectj"
 
     defaultConfig {
         applicationId = "com.github.jeffery.aspectj"
