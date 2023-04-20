@@ -5,9 +5,9 @@
 在安卓中使用aspectj。全部功能都是aspectj官方的，这个插件仅仅是做aspectj和android gradle plugin的连接桥梁作用。
 在安卓项目编译完成后执行aspectj进行class字节码修改。
 
-使用方法
-
-**注：kotlin编写的切面只能应用于kotlin代码中，java编写的切面只能应用于java代码中**
+1. 支持java和kotlin
+2. 支持app和library的module
+3. 支持增量编译，提供编译速度
 
 ## 1.引入插件
 
