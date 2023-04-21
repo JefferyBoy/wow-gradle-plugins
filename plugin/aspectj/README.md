@@ -19,6 +19,9 @@ plugins {
 }
 ```
 
+demo代码请查看
+[example-aspectj-app](https://github.com/JefferyBoy/wow-gradle-plugins/tree/master/example/aspectj-app)
+
 ## 2.编写切面
 
 ```java

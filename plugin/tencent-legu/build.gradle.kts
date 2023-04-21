@@ -20,10 +20,13 @@ dependencies {
     implementation("com.qcloud:cos_api:5.6.57")
     implementation("com.tencent.cloud:cos-sts-java:3.0.8")
 }
+tasks.withType(Javadoc::class.java).all {
+    isFailOnError = false
+}
 
 gradlePlugin {
-    website.set("https://github.com/JefferyBoy/wow-gradle-plugins")
-    vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins")
+    website.set("https://github.com/JefferyBoy/wow-gradle-plugins/blob/master/plugin/tencent-legu/README.md")
+    vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins.git")
     plugins {
         create("legu") {
             id = "top.amake.legu"

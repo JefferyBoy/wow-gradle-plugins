@@ -4,24 +4,12 @@
 
 使用腾讯应用加固服务，需要配置腾讯云的密钥、对象存储库
 
-1. 应用插件 在根目录的build.gradle加入
+1. 在build.gradle加入
 
 ```groovy
-buildscript {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath 'com.github.JefferyBoy:android-apk-protect-gradle-plugin:1.0.1'
-    }
+plugins {
+    id("top.amake.legu").version("1.0.0")
 }
-```
-
-在应用app的build.gradle加入
-
-```groovy
-apply plugin: 'android.apk.protect'
-
 Properties localProperties = new Properties()
 localProperties.load(new FileInputStream(new File(project.rootDir, "local.properties")));
 // apk加固配置，腾讯云对象存储用来上传apk
@@ -49,7 +37,7 @@ tencentCloudCosRegion=
 
 ```shell
 # 任务名称根据app配置的编译编译variant而改变
-./gradlew app:protect-assembleRelease
+./gradlew app:assembleReleaseLegu
 ```
 
 执行过程日志如下

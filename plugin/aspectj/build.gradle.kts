@@ -22,8 +22,8 @@ dependencies {
 }
 
 gradlePlugin {
-    website.set("https://github.com/JefferyBoy/wow-gradle-plugins")
-    vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins")
+    website.set("https://github.com/JefferyBoy/wow-gradle-plugins/tree/master/plugin/aspectj")
+    vcsUrl.set("https://github.com/JefferyBoy/wow-gradle-plugins.git")
     plugins {
         create("aspectj") {
             id = "top.amake.aspectj"

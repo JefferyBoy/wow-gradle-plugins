@@ -6,7 +6,6 @@ import org.gradle.api.logging.Logging;
 
 /**
  * @author jeffery
- * @date 4/21/23
  */
 public class LogUtil {
     private static final Logger log = Logging.getLogger("aspectj");
