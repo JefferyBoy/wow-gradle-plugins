@@ -23,7 +23,7 @@ class AspectjExecutor {
             "-bootclasspath", bootClassPath,
             "-classpath", classPath
         }
-//        log.quiet("aspectj javaArgs: " + Arrays.toString(javaArgs))
+        LogUtil.d("aspectj javaArgs: " + Arrays.toString(javaArgs))
         MessageHandler handler = new MessageHandler(true)
         new Main().run(javaArgs, handler)
         for (IMessage message : handler.getMessages(null, true)) {

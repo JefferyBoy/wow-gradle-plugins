@@ -79,7 +79,8 @@ class AspectjTransform extends Transform {
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
-//        log.quiet("transform incremental: ${transformInvocation.incremental}")
+        def start = System.currentTimeMillis()
+        LogUtil.i("transform incremental: ${transformInvocation.incremental}")
         initTransform(transformInvocation)
         def variantName = transformInvocation.context.variantName
         TransformOutputProvider outputProvider = transformInvocation.getOutputProvider();
@@ -112,14 +113,14 @@ class AspectjTransform extends Transform {
                         def fileTemp = new File(fileTempDir, file.path.replaceFirst(dirInput.file.path, ""))
                         switch (status) {
                             case Status.ADDED:
-//                                log.quiet("add file ${file.path}")
+                                LogUtil.d("add file ${file.path}")
                                 FileUtil.copyFile(file, fileDest)
                                 FileUtil.copyFile(file, fileTemp)
                                 needWeaver = true
                                 aspectCache.addAspect(findAspectOfFile(fileDest))
                                 break
                             case Status.CHANGED:
-//                                log.quiet("changed file ${file.path}")
+                                LogUtil.d("changed file ${file.path}")
                                 aspectCache.removeAspect(fileDest)
                                 aspectCache.removeJoinPoint(fileDest)
                                 FileUtil.copyFile(file, fileDest)
@@ -128,7 +129,7 @@ class AspectjTransform extends Transform {
                                 aspectCache.addAspect(findAspectOfFile(fileDest))
                                 break
                             case Status.REMOVED:
-//                                log.quiet("remove file ${file.path}")
+                                LogUtil.d("remove file ${file.path}")
                                 aspectCache.removeAspect(fileDest)
                                 aspectCache.removeJoinPoint(fileDest)
                                 break
@@ -146,17 +147,43 @@ class AspectjTransform extends Transform {
             Collection<File> changedFiles = new ArrayList<>()
             transformInvocation.inputs.each { input ->
                 input.jarInputs.each { jar ->
-//                    log.quiet("jarInput ${jar.file.path}")
+                    LogUtil.d("jarInput ${jar.file.path}")
                     File jarDest = outputProvider.getContentLocation(jar.getFile().getAbsolutePath(), jar.getContentTypes(), jar.getScopes(), Format.JAR);
                     FileUtil.copyFile(jar.file, jarDest)
                     aspectCache.addAspect(findAspectOfFile(jarDest))
                 }
                 input.directoryInputs.each { dir ->
-//                    log.quiet("directoryInput ${dir.file.path}")
+                    LogUtil.d("directoryInput ${dir.file.path}")
                     File dirDest = outputProvider.getContentLocation(dir.getName(), dir.getContentTypes(), dir.getScopes(), Format.DIRECTORY);
                     FileUtil.copyDir(dir.getFile(), dirDest)
                     aspectCache.addAspect(findAspectOfFile(dirDest))
                     changedFiles.add(dirDest)
+                }
+            }
+            def app = project.extensions.findByType(AppExtension)
+            def lib = project.extensions.findByType(LibraryExtension)
+            if (lib != null) {
+                lib.libraryVariants.forEach { variant ->
+                    if (variant.name == variantName) {
+                        variant.javaCompileProvider
+                               .get()
+                               .getClasspath()
+                               .each {
+                                   aspectCache.addAspect(findAspectOfFile(it))
+                               }
+                    }
+                }
+            }
+            if (app != null) {
+                app.applicationVariants.all { ApplicationVariant variant ->
+                    if (variant.name == variantName) {
+                        variant.javaCompileProvider
+                               .get()
+                               .getClasspath()
+                               .each {
+                                   aspectCache.addAspect(findAspectOfFile(it))
+                               }
+                    }
                 }
             }
             changedFiles.forEach {
@@ -170,6 +197,7 @@ class AspectjTransform extends Transform {
             fo.write(json.getBytes())
             fo.close()
         }
+        LogUtil.i("aspect transform complete in ${System.currentTimeMillis() - start} ms")
     }
 
     /**
@@ -178,20 +206,16 @@ class AspectjTransform extends Transform {
      * */
     private void processAspectj(String variantName, String inputPath, String outputPath) {
         def aspectFileSet = aspectCache.aspectClasses
-//        log.quiet("processAspectj ${variantName}")
-//        log.quiet("inputPath =  ${inputPath}")
-//        log.quiet("aspectPath =  ${aspectFileSet.join(":")}")
         if (aspectFileSet.isEmpty()) {
             return
         }
-        def start = System.currentTimeMillis()
         def app = project.extensions.findByType(AppExtension)
         def lib = project.extensions.findByType(LibraryExtension)
         def bootClassPath = ""
         def classPath = ""
         def aspectPath = aspectFileSet
             .stream()
-            .map({ it.substring(0, it.lastIndexOf('/')) })
+            .map({ it.endsWith(".jar") ? it : it.substring(0, it.lastIndexOf('/')) })
             .collect(Collectors.toSet())
             .join(":")
         if (lib != null) {
@@ -239,7 +263,6 @@ class AspectjTransform extends Transform {
             }
             value.add(it.path)
         }
-        log.quiet("aspect transform complete in ${System.currentTimeMillis() - start} ms")
     }
 
     /**

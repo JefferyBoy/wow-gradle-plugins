@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_write"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请存储权限" />
+
+    <Button
+        android:id="@+id/btn_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请定位权限" />
+
+    <Button
+        android:id="@+id/btn_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请相机权限" />
+
+    <Button
+        android:id="@+id/btn_voice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请录音权限" />
+
+    <Button
+        android:id="@+id/btn_normal_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="普通类中测试" />
+
+    <Button
+        android:id="@+id/btn_anonymous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="匿名内部类" />
+</LinearLayout>
