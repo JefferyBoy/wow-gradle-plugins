@@ -44,13 +44,13 @@ dependencies {
 // 腾讯乐固加固APK
 legu {
     // 腾讯云secretId
-    tencentCloudSecretId = "AKIDGLBk36tPedLmwsZz93h5C2cPvBBvPcYE"
+    tencentCloudSecretId = ""
     // 腾讯云secretKey
-    tencentCloudSecretKey = "RbT5QUIq8BxShfMmwpRmqeBRQ9bnlTu4"
+    tencentCloudSecretKey = ""
     // 腾讯COS对象存储bucket名称
-    tencentCloudCosBucket = "gradle-1300412012"
+    tencentCloudCosBucket = ""
     // 腾讯云COS对象存储的区域名称
-    tencentCloudCosRegion = "ap-guangzhou"
+    tencentCloudCosRegion = ""
     // 下载后删除COS中的文件
     isTencentCloudCosDeleteFileAfterTask = true
 }
