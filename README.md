@@ -1,12 +1,16 @@
-项目中用到的一些插件，方便开发、提高效率
+[Chinese](./README_CN.md)
 
-1. AOP插件
-   AspectJ在安卓中应用，使安卓中也玩Spring中的AOP。对于字节码插桩、性能检测都非常有用。支持增量编译，编译速度很快。
-   假如要统计所有Activity的生命周期方法执行耗时？仅需要编写一个切面类即可，原来的Activity无需任何变动。
+Some useful gradle plugin in android project.
 
-   - [使用指南](./plugin/aspectj)
-   - [示例代码-应用](./example/aspectj-app)
-   - [示例代码-模块](./example/aspectj-library)
+1. AOP Plugin
+   AspectJ is applied in Android, so that Android can also play AOP in Spring. It is very useful for
+   bytecode instrumentation and performance testing. Incremental compilation is supported, and the
+   compilation speed is very fast. What if you want to count the execution time of all Activity
+   lifecycle methods? Only one aspect class needs to be written, and the original Activity does not
+   need any changes.
+   - [Guide](./plugin/aspectj)
+   - [Demo-app](./example/aspectj-app)
+   - [Demo-library](./example/aspectj-library)
 
 ```java
 
@@ -30,11 +34,12 @@ public class JavaActivityAspect {
 }
 ```
 
-2. 动态权限申请插件
-   使用一个注解完成动态权限的申请，再也不用写一堆的权限申请重复性代码了。
+2. Dynamic permission plugin
+   Use one annotation to complete the application of dynamic permissions, and no longer need to
+   write a bunch of repetitive codes for permission applications.
 
-   - [使用指南](./library/easy-permission)
-   - [示例代码](./example/easy-permission-app)
+   - [Guide](./library/easy-permission)
+   - [Demo](./example/easy-permission-app)
 
 ```java
 public class MainActivity {
@@ -46,11 +51,12 @@ public class MainActivity {
 }
 ```
 
-3. APK加固插件
-   编译APK后使用腾讯乐固自动完成加固，输出加固后的APK文件。整个过程仅需要执行一个gradle task。
+3. APK protect plugin
+   After compiling the APK, use Tencent Legu to automatically complete the hardening, and output the
+   hardened APK file. The whole process only needs to execute a gradle task.
 
-   - [使用指南](./plugin/tencent-legu)
-   - [示例代码](./example/legu-app)
+   - [Guide](./plugin/tencent-legu)
+   - [Demo](./example/legu-app)
 
 ```shell
 gradlew app:assembleReleaseLegu
